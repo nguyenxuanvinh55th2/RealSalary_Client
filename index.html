@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Sample App</title>
+    <link href="/node_modules/patternfly/dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+    <link href="/node_modules/patternfly/dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+    <!-- jQuery -->
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- PatternFly -->
+    <script src="/node_modules/patternfly/dist/js/patternfly.min.js"></script>
+  </head>
+  <body>
+    <div id='root'>
+    </div>
+    <script src="/static/bundle.js"></script>
+    <script>
+      if (localStorage)
+      {
+        //alert("STDIO: Yes, localStorage is here!");
+      }
+      else
+      {
+        alert("Trình duyệt của bạn cần hỗ  trợ local Storage!");
+      }
+
+      window.onclick = function(e) {
+        console.log(e.target.id);
+        // if(e.target.id !== 'notification' && e.target.id !== 'notificationButton')
+        //   document.getElementById('notification').style.display = 'none';
+        if(e.target.id !== 'userMenu' && e.target.id !== 'userButton')
+          document.getElementById('userMenu').style.display = 'none';
+      }
+    </script>
+  </body>
+</html>
