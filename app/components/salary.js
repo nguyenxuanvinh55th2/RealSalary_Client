@@ -25,16 +25,54 @@ class DetailSalaryMember extends React.Component {
           firstSalary = firstAc.salary[0];
           this.totalmember = this.totalmember + firstSalary.totalSalary
           listtr.push((
-            <tr>
-              <td>{i._id}</td>
-              <td>{firstAc.statusName}</td>
+            <tr key={i._id+firstAc.statusName}>
+              <td rowSpan={i.salaryActive.length}>{i._id}</td>
+              <td rowSpan={firstAc.salary.length}>{firstAc.statusName}</td>
               <td>{firstSalary.positionName}</td>
               <td>{firstSalary.totalSalary}</td>
             </tr>
           ))
+          __.forEach(firstAc.salary.slice(1),(salary)=>{
+            if(ac)
+            {
+              this.totalmember = this.totalmember + salary.totalSalary
+              listtr.push((
+                <tr key={i._id+firstAc.statusName+salary}>
+                  <td>{salary.positionName}</td>
+                  <td>{salary.totalSalary}</td>
+              </tr>))
+            }
+          })
         }
-      }
+        __.forEach(i.salaryActive.slice(1),(ac)=>{
+          if(ac)
+          {
+            console.log(ac);
+
+            let first = ac.salary[0];
+            this.totalmember = this.totalmember + first.totalSalary
+            listtr.push((
+              <tr key ={i._id+ac.statusName+first.positionName} >
+                <td rowSpan={ac.salary.length}>{ac.statusName}</td>
+                <td>{first.positionName}</td>
+                <td>{first.totalSalary}</td>
+              </tr>
+            ))
+            __.forEach(ac.salary.slice(1),(salary)=>{
+              if(salary)
+              {
+                this.totalmember = this.totalmember + salary.totalSalary
+                listtr.push((
+                  <tr key={i._id+ac.statusName+salary.positionName}>
+                    <td>{salary.positionName}</td>
+                    <td>{salary.totalSalary}</td>
+                </tr>))
+              }
+            })
+          }
     })
+  }
+  })
     return listtr
   }
   render(){
@@ -42,7 +80,7 @@ class DetailSalaryMember extends React.Component {
 
     return(
       <tbody>
-        <tr style={{backgroundColor:'rgb(120, 143, 189)'}}><td colSpan={6}>{this.props.member.name}</td></tr>
+        <tr style={{backgroundColor:'rgb(120, 143, 189)'}}><td colSpan={4}>{this.props.member.name}</td></tr>
         {this.renderSalaryMember()}
         <tr>
            <td colSpan={3}>Tổng tiền</td>
@@ -126,6 +164,8 @@ class BargeSalary extends React.Component {
     if(this.props.dataSalary.loading || !this.props.dataSalary)
       return (<div  className="spinner spinner-lg"></div>)
       else {
+        // console.log(this.props.dataSalary.bargerSalary.salarymembers);
+
         this.totalSalaryMember =0;
         __.forEach(this.props.dataSalary.bargerSalary.salarymembers,(item)=>{
           __.forEach(item.documents,(doc)=>{
@@ -136,7 +176,6 @@ class BargeSalary extends React.Component {
             })
           })
         })
-
         return (<div style={{padding:'10px'}} >
           <table className="table table-bordered table-hover" id="table1">
           <thead>
